@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>images/analysis.png</file>
+    <file>images/about.png</file>
+    <file>images/help.png</file>
+    <file>images/open.png</file>
+    <file>images/quit.png</file>
+    <file>images/save.png</file>
+    <file>images/proj7.png</file>
+  </qresource>
+</RCC>

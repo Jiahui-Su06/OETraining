@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>images/close.png</file>
+    <file>images/proj4.png</file>
+    <file>images/about.png</file>
+    <file>images/analysis.png</file>
+    <file>images/clear.png</file>
+    <file>images/delete.png</file>
+    <file>images/help.png</file>
+    <file>images/open.png</file>
+    <file>images/quit.png</file>
+    <file>images/record.png</file>
+    <file>images/save.png</file>
+  </qresource>
+</RCC>
