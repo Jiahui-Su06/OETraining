@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 
 from PIL import Image, ImageFont, ImageDraw
+from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QPixmap, QPainter, QImage
 from ui_mainwindow import Ui_MainWindow
 from PySide6.QtWidgets import (
@@ -37,6 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionAbout.triggered.connect(self.showAbout)
 
 
+    @Slot()
     def openImage(self):
         self.filePath, _ = QFileDialog.getOpenFileName(
             self,
@@ -57,6 +59,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.graphicsView.scale(0.5, 0.5)
 
 
+    @Slot()
     def processImage(self):
         if self.filePath is None:
             self.textBrowser.append(
@@ -137,7 +140,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scene.clear()
         self.imageItem = self.scene.addPixmap(pixmap)
 
-    
+
+    @Slot()
     def saveImage(self):
         if self.imageItem is None:
             QMessageBox.warning(self, "Error", "No processed images found, please process images first!")
@@ -168,6 +172,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def wheelEvent(self, event):
+        if not event.modifiers() & Qt.ControlModifier:
+            event.ignore()
+            return
+        
         zoom_factor = 1.2
         if event.angleDelta().y() > 0:
             self.graphicsView.scale(zoom_factor, zoom_factor)
@@ -175,6 +183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.graphicsView.scale(1/zoom_factor, 1/zoom_factor)
 
 
+    @Slot()
     def showHelp(self):
         help_text = """
     User Help Manual
@@ -206,6 +215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMessageBox.information(self, "Help", help_text.strip())
 
 
+    @Slot()
     def showAbout(self):
         about_text = """
     Laser Collimator

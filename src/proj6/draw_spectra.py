@@ -3,13 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-file_name = "mp6spec"
+file_name = "mp6spec"  # m5spec/mp5spec/mp6spec for select
 df = pd.read_excel(
     f"docs/{file_name}.xlsx",
     sheet_name='Sheet1',
     index_col=0
 )
-output_folder = f"output/{file_name}tra"
+output_folder = f"output/raw_spectra/{file_name}tra"
 os.makedirs(  # make output folder
     output_folder,
     exist_ok=True

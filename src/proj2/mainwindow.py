@@ -9,7 +9,7 @@ from PIL import Image
 from reconworker import ReconWorker
 from sklearn.cluster import DBSCAN
 from ui_mainwindow import Ui_MainWindow
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Qt
 from PySide6.QtGui import QPixmap, QPainter, QImage
 from PySide6.QtWidgets import (
     QMainWindow, QGraphicsScene,
@@ -150,6 +150,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def wheelEvent(self, event):
+        if not event.modifiers() & Qt.ControlModifier:
+            event.ignore()
+            return
+        
         zoom_factor = 1.2
         if event.angleDelta().y() > 0:
             self.graphicsView.scale(zoom_factor, zoom_factor)

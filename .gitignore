@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# proj6 processed documents
+src/proj6/output/
