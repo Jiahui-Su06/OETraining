@@ -24,6 +24,7 @@ CCD_PIXELS = 3648  # pixel number
 PIXEL_SIZE = 0.008  # mm
 LAMBDA = 632.8e-6  # lambda (mm)
 
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
