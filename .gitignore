@@ -10,4 +10,5 @@ wheels/
 .venv
 
 # proj6 processed documents
-src/proj6/output/
+src/proj6/output/*
+!src/proj6/output/.gitkeep
