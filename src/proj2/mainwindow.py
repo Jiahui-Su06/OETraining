@@ -1,16 +1,11 @@
 import os
-import cv2
 import numpy as np
-import pyqtgraph as pg
 import pyvista as pv
-import matplotlib.pyplot as plt
 
-from PIL import Image
 from reconworker import ReconWorker
-from sklearn.cluster import DBSCAN
 from ui_mainwindow import Ui_MainWindow
 from PySide6.QtCore import Slot, Qt
-from PySide6.QtGui import QPixmap, QPainter, QImage
+from PySide6.QtGui import QPixmap, QPainter
 from PySide6.QtWidgets import (
     QMainWindow, QGraphicsScene,
     QGraphicsView, QFileDialog,

@@ -1,43 +1,16 @@
-import numpy as np
 import pandas as pd
-
+import numpy as np
+import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
+import time
+from sklearn.metrics import mean_squared_error
+import os
 
 
-# Exponential Smoothing
-def ES(series, alpha=0.3): # alpha smaller is better
-    data = series.values
-    smoothed = [data[0]]
-    for i in range(1, len(data)):
-        smoothed_val = alpha*data[i] + (1-alpha)*smoothed[i-1]
-        smoothed.append(smoothed_val)
-    return pd.Series(smoothed, index=series.index)
-
-
-# Standard Normal Variate
-def SNV(spectrum):
-    mean = np.mean(spectrum)
-    std = np.std(spectrum)
-    return (spectrum-mean)/std if std != 0 else spectrum-mean
-
-
-# Savitzky-Golay Filter
-SG = savgol_filter
-
-
-def calcSNR(signal, noise):
-    signal_power = np.mean(signal**2)
-    noise_power = np.mean(noise**2)
-    return 10*np.log10(signal_power/noise_power) if noise_power != 0 else float('inf')
-
-
-def calcSmoothness(signal):
-    return np.sum(np.diff(signal)**2)
-
-
-def calcFR(original, processed):
-    # Calculate feature preservation
-    return np.corrcoef(original, processed)[0, 1]
+def load_data():
+    """加载原始数据"""
+    df = pd.read_excel('data/m5spec.xlsx', sheet_name='Sheet1', index_col=0)
+    return df
 
 
 def evaluate_preprocessing():
@@ -123,3 +96,6 @@ def evaluate_preprocessing():
             print(f"{metric}: {value:.4f}")
     
     return summary
+
+if __name__ == "__main__":
+    evaluate_preprocessing()
