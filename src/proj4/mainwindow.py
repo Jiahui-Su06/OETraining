@@ -76,6 +76,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.refreshPort()
 
+        self.textBrowser.append(
+            "> <span style='color: green'>Initialized successfully</span>\n"
+        )
+
 
     @Slot()
     def recordData(self):

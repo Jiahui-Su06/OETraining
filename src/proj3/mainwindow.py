@@ -37,6 +37,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionHelp.triggered.connect(self.showHelp)
         self.actionAbout.triggered.connect(self.showAbout)
 
+        self.textBrowser.append(
+            "> <span style='color: green'>Initialized successfully</span>\n"
+        )
+
 
     @Slot()
     def openImage(self):

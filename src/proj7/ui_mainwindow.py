@@ -16,11 +16,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox, QGraphicsView,
-    QGridLayout, QGroupBox, QHBoxLayout, QLabel,
-    QLineEdit, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QStatusBar, QTextBrowser,
-    QToolBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDoubleSpinBox,
+    QGraphicsView, QGridLayout, QGroupBox, QHBoxLayout,
+    QLabel, QLineEdit, QMainWindow, QMenu,
+    QMenuBar, QPushButton, QSizePolicy, QStatusBar,
+    QTextBrowser, QToolBar, QVBoxLayout, QWidget)
 import res_rc
 
 class Ui_MainWindow(object):
@@ -41,26 +41,21 @@ class Ui_MainWindow(object):
         icon2 = QIcon()
         icon2.addFile(u":/logo/images/save.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionSave.setIcon(icon2)
-        self.actionMulti_Mirror_Mode = QAction(MainWindow)
-        self.actionMulti_Mirror_Mode.setObjectName(u"actionMulti_Mirror_Mode")
-        icon3 = QIcon()
-        icon3.addFile(u":/logo/images/analysis.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.actionMulti_Mirror_Mode.setIcon(icon3)
         self.actionHelp = QAction(MainWindow)
         self.actionHelp.setObjectName(u"actionHelp")
-        icon4 = QIcon()
-        icon4.addFile(u":/logo/images/help.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.actionHelp.setIcon(icon4)
+        icon3 = QIcon()
+        icon3.addFile(u":/logo/images/help.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.actionHelp.setIcon(icon3)
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
+        icon4 = QIcon()
+        icon4.addFile(u":/logo/images/about.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.actionAbout.setIcon(icon4)
+        self.actionQuit = QAction(MainWindow)
+        self.actionQuit.setObjectName(u"actionQuit")
         icon5 = QIcon()
-        icon5.addFile(u":/logo/images/about.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.actionAbout.setIcon(icon5)
-        self.actionClose = QAction(MainWindow)
-        self.actionClose.setObjectName(u"actionClose")
-        icon6 = QIcon()
-        icon6.addFile(u":/logo/images/quit.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.actionClose.setIcon(icon6)
+        icon5.addFile(u":/logo/images/quit.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.actionQuit.setIcon(icon5)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -186,42 +181,55 @@ class Ui_MainWindow(object):
         self.label_3 = QLabel(self.groupBox_4)
         self.label_3.setObjectName(u"label_3")
 
-        self.gridLayout_2.addWidget(self.label_3, 5, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_3, 6, 0, 1, 1)
 
         self.label_2 = QLabel(self.groupBox_4)
         self.label_2.setObjectName(u"label_2")
 
-        self.gridLayout_2.addWidget(self.label_2, 4, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_2, 5, 0, 1, 1)
+
+        self.distanceEdit = QLineEdit(self.groupBox_4)
+        self.distanceEdit.setObjectName(u"distanceEdit")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.distanceEdit.sizePolicy().hasHeightForWidth())
+        self.distanceEdit.setSizePolicy(sizePolicy1)
+        self.distanceEdit.setReadOnly(True)
+
+        self.gridLayout_2.addWidget(self.distanceEdit, 8, 1, 1, 1)
 
         self.d1Box = QDoubleSpinBox(self.groupBox_4)
         self.d1Box.setObjectName(u"d1Box")
         self.d1Box.setMaximum(500.000000000000000)
         self.d1Box.setSingleStep(10.000000000000000)
 
-        self.gridLayout_2.addWidget(self.d1Box, 4, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.d1Box, 5, 1, 1, 1)
 
         self.wasitEdit = QLineEdit(self.groupBox_4)
         self.wasitEdit.setObjectName(u"wasitEdit")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.wasitEdit.sizePolicy().hasHeightForWidth())
         self.wasitEdit.setSizePolicy(sizePolicy1)
         self.wasitEdit.setReadOnly(True)
 
-        self.gridLayout_2.addWidget(self.wasitEdit, 6, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.wasitEdit, 7, 1, 1, 1)
 
         self.label = QLabel(self.groupBox_4)
         self.label.setObjectName(u"label")
 
-        self.gridLayout_2.addWidget(self.label, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label, 3, 0, 1, 1)
+
+        self.label_6 = QLabel(self.groupBox_4)
+        self.label_6.setObjectName(u"label_6")
+
+        self.gridLayout_2.addWidget(self.label_6, 8, 0, 1, 1)
 
         self.fBox = QDoubleSpinBox(self.groupBox_4)
         self.fBox.setObjectName(u"fBox")
         self.fBox.setMaximum(200.000000000000000)
         self.fBox.setSingleStep(10.000000000000000)
 
-        self.gridLayout_2.addWidget(self.fBox, 2, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.fBox, 3, 1, 1, 1)
 
         self.checkBox = QCheckBox(self.groupBox_4)
         self.checkBox.setObjectName(u"checkBox")
@@ -231,27 +239,26 @@ class Ui_MainWindow(object):
         self.label_5 = QLabel(self.groupBox_4)
         self.label_5.setObjectName(u"label_5")
 
-        self.gridLayout_2.addWidget(self.label_5, 6, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_5, 7, 0, 1, 1)
 
         self.d2Box = QDoubleSpinBox(self.groupBox_4)
         self.d2Box.setObjectName(u"d2Box")
         self.d2Box.setMaximum(700.000000000000000)
         self.d2Box.setSingleStep(10.000000000000000)
 
-        self.gridLayout_2.addWidget(self.d2Box, 5, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.d2Box, 6, 1, 1, 1)
 
-        self.label_6 = QLabel(self.groupBox_4)
-        self.label_6.setObjectName(u"label_6")
+        self.comboBox = QComboBox(self.groupBox_4)
+        self.comboBox.setObjectName(u"comboBox")
+        sizePolicy1.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
+        self.comboBox.setSizePolicy(sizePolicy1)
 
-        self.gridLayout_2.addWidget(self.label_6, 7, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.comboBox, 2, 1, 1, 1)
 
-        self.distanceEdit = QLineEdit(self.groupBox_4)
-        self.distanceEdit.setObjectName(u"distanceEdit")
-        sizePolicy1.setHeightForWidth(self.distanceEdit.sizePolicy().hasHeightForWidth())
-        self.distanceEdit.setSizePolicy(sizePolicy1)
-        self.distanceEdit.setReadOnly(True)
+        self.label_11 = QLabel(self.groupBox_4)
+        self.label_11.setObjectName(u"label_11")
 
-        self.gridLayout_2.addWidget(self.distanceEdit, 7, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.label_11, 2, 0, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -285,8 +292,6 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 945, 33))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
-        self.menuEdit_E = QMenu(self.menubar)
-        self.menuEdit_E.setObjectName(u"menuEdit_E")
         self.menuHelp_H = QMenu(self.menubar)
         self.menuHelp_H.setObjectName(u"menuHelp_H")
         MainWindow.setMenuBar(self.menubar)
@@ -298,18 +303,15 @@ class Ui_MainWindow(object):
         MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
 
         self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.menuEdit_E.menuAction())
         self.menubar.addAction(self.menuHelp_H.menuAction())
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
-        self.menuFile.addAction(self.actionClose)
-        self.menuEdit_E.addAction(self.actionMulti_Mirror_Mode)
+        self.menuFile.addAction(self.actionQuit)
         self.menuHelp_H.addAction(self.actionHelp)
         self.menuHelp_H.addAction(self.actionAbout)
         self.toolBar.addAction(self.actionOpen)
         self.toolBar.addAction(self.actionSave)
         self.toolBar.addSeparator()
-        self.toolBar.addAction(self.actionMulti_Mirror_Mode)
 
         self.retranslateUi(MainWindow)
 
@@ -320,12 +322,11 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Laser Resonator Designer", None))
         self.actionOpen.setText(QCoreApplication.translate("MainWindow", u"Open", None))
         self.actionSave.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.actionMulti_Mirror_Mode.setText(QCoreApplication.translate("MainWindow", u"Multi-Mirror Mode", None))
         self.actionHelp.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
-        self.actionClose.setText(QCoreApplication.translate("MainWindow", u"Quit", None))
+        self.actionQuit.setText(QCoreApplication.translate("MainWindow", u"Quit", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Viewer", None))
-        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Resonator Parameters", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Right Mirror Radius (mm):", None))
         self.reset_Button.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Wavelength (\u03bcm):", None))
@@ -336,13 +337,15 @@ class Ui_MainWindow(object):
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Collimator", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"View Length (mm):", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Gap Length (mm):", None))
+        self.distanceEdit.setText(QCoreApplication.translate("MainWindow", u"0.00", None))
+        self.wasitEdit.setText(QCoreApplication.translate("MainWindow", u"0.00", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Focal Length (mm):", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Waist From Lens (mm):", None))
         self.checkBox.setText(QCoreApplication.translate("MainWindow", u"Fitted with a collimating lens", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Waist Width (mm):", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Waist From Lens (mm):", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Lens Part Number:", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Prompt", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File(&F)", None))
-        self.menuEdit_E.setTitle(QCoreApplication.translate("MainWindow", u"Edit(&E)", None))
         self.menuHelp_H.setTitle(QCoreApplication.translate("MainWindow", u"Help(&H)", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi

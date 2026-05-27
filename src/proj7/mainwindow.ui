@@ -43,7 +43,7 @@
       <item>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
-         <string>Settings</string>
+         <string>Resonator Parameters</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
@@ -199,21 +199,37 @@
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="5" column="0">
+           <item row="6" column="0">
             <widget class="QLabel" name="label_3">
              <property name="text">
               <string>View Length (mm):</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
+           <item row="5" column="0">
             <widget class="QLabel" name="label_2">
              <property name="text">
               <string>Gap Length (mm):</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="distanceEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>0.00</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
             <widget class="QDoubleSpinBox" name="d1Box">
              <property name="maximum">
               <double>500.000000000000000</double>
@@ -223,7 +239,7 @@
              </property>
             </widget>
            </item>
-           <item row="6" column="1">
+           <item row="7" column="1">
             <widget class="QLineEdit" name="wasitEdit">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -231,19 +247,29 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="text">
+              <string>0.00</string>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
               <string>Focal Length (mm):</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Waist From Lens (mm):</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
             <widget class="QDoubleSpinBox" name="fBox">
              <property name="maximum">
               <double>200.000000000000000</double>
@@ -260,14 +286,14 @@
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
+           <item row="7" column="0">
             <widget class="QLabel" name="label_5">
              <property name="text">
               <string>Waist Width (mm):</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
+           <item row="6" column="1">
             <widget class="QDoubleSpinBox" name="d2Box">
              <property name="maximum">
               <double>700.000000000000000</double>
@@ -277,23 +303,20 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>Waist From Lens (mm):</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1">
-            <widget class="QLineEdit" name="distanceEdit">
+           <item row="2" column="1">
+            <widget class="QComboBox" name="comboBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="readOnly">
-              <bool>true</bool>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Lens Part Number:</string>
              </property>
             </widget>
            </item>
@@ -340,13 +363,7 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
-    <addaction name="actionClose"/>
-   </widget>
-   <widget class="QMenu" name="menuEdit_E">
-    <property name="title">
-     <string>Edit(&amp;E)</string>
-    </property>
-    <addaction name="actionMulti_Mirror_Mode"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp_H">
     <property name="title">
@@ -356,7 +373,6 @@
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit_E"/>
    <addaction name="menuHelp_H"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -373,7 +389,6 @@
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
    <addaction name="separator"/>
-   <addaction name="actionMulti_Mirror_Mode"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -391,15 +406,6 @@
    </property>
    <property name="text">
     <string>Save</string>
-   </property>
-  </action>
-  <action name="actionMulti_Mirror_Mode">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/logo/images/analysis.png</normaloff>:/logo/images/analysis.png</iconset>
-   </property>
-   <property name="text">
-    <string>Multi-Mirror Mode</string>
    </property>
   </action>
   <action name="actionHelp">
@@ -420,7 +426,7 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionClose">
+  <action name="actionQuit">
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/logo/images/quit.png</normaloff>:/logo/images/quit.png</iconset>
