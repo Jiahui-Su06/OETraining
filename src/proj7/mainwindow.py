@@ -15,6 +15,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.left_radius_DSpinBox.setValue(500.0)
         self.right_radius_DSpinBox.setValue(500.0)
         self.key_step_DSpinBox.setValue(20.0)
+        self.d1Box.setValue(20.0)
+        self.d2Box.setValue(100.0)
+        self.fBox.setValue(40.0)
         
         self.scene = ViewGraphicsScene(self)
         self.graphicsView.setScene(self.scene)
@@ -24,16 +27,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         L = self.cavity_length_DSpinBox.value()
         r1 = self.left_radius_DSpinBox.value()
         r2 = self.right_radius_DSpinBox.value()
+        d1 = self.d1Box.value()
+        d2 = self.d2Box.value()
+        f = self.fBox.value()
+        lens = self.checkBox.isChecked()
 
         self.resonator = LaserResonator(
             parent_scene=self.scene,
-            wl=wl, L=L, r1=r1, r2=r2
+            wl=wl, L=L, r1=r1, r2=r2,
+            d1=d1, d2=d2, f=f, lens=lens
         )
 
         self.wavelength_DSpinBox.valueChanged.connect(self.redraw_scene)
         self.cavity_length_DSpinBox.valueChanged.connect(self.redraw_scene)
         self.left_radius_DSpinBox.valueChanged.connect(self.redraw_scene)
         self.right_radius_DSpinBox.valueChanged.connect(self.redraw_scene)
+        self.checkBox.toggled.connect(self.redraw_scene)
+        self.d1Box.valueChanged.connect(self.redraw_scene)
+        self.d2Box.valueChanged.connect(self.redraw_scene)
+        self.fBox.valueChanged.connect(self.redraw_scene)
         self.help_Button.clicked.connect(self.show_help_dialog)
         self.reset_Button.clicked.connect(self.reset_Button_clicked)
 
@@ -51,8 +63,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         L = self.cavity_length_DSpinBox.value()
         r1 = self.left_radius_DSpinBox.value()
         r2 = self.right_radius_DSpinBox.value()
+        d1 = self.d1Box.value()
+        d2 = self.d2Box.value()
+        f = self.fBox.value()
+        lens = self.checkBox.isChecked()
 
-        self.resonator.update_params(wl=wl, L=L, r1=r1, r2=r2)
+        self.resonator.update_params(
+            wl=wl, L=L, r1=r1, r2=r2,
+            d1=d1, d2=d2, f=f, lens=lens
+        )
+        z_waist_from_lens, waist_width = self.resonator.get_external_waist()
+        self.wasitEdit.setText(f"{waist_width:.2f}")
+        self.distanceEdit.setText(f"{z_waist_from_lens:.2f}")
         self.resonator.redraw()
 
 

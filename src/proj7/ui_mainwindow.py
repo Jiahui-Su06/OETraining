@@ -16,18 +16,18 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QDoubleSpinBox, QGraphicsView, QGridLayout,
-    QGroupBox, QHBoxLayout, QLabel, QMainWindow,
-    QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTextBrowser, QToolBar, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox, QGraphicsView,
+    QGridLayout, QGroupBox, QHBoxLayout, QLabel,
+    QLineEdit, QMainWindow, QMenu, QMenuBar,
+    QPushButton, QSizePolicy, QStatusBar, QTextBrowser,
+    QToolBar, QVBoxLayout, QWidget)
 import res_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(918, 698)
+        MainWindow.resize(945, 692)
         icon = QIcon()
         icon.addFile(u":/logo/images/proj7.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -71,14 +71,15 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.graphicsView = QGraphicsView(self.groupBox)
         self.graphicsView.setObjectName(u"graphicsView")
+        self.graphicsView.setMinimumSize(QSize(600, 550))
 
         self.verticalLayout.addWidget(self.graphicsView)
 
 
         self.horizontalLayout.addWidget(self.groupBox)
 
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_5 = QVBoxLayout()
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_2)
@@ -174,7 +175,89 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.gridLayout)
 
 
-        self.verticalLayout_4.addWidget(self.groupBox_2)
+        self.verticalLayout_5.addWidget(self.groupBox_2)
+
+        self.groupBox_4 = QGroupBox(self.centralwidget)
+        self.groupBox_4.setObjectName(u"groupBox_4")
+        self.verticalLayout_4 = QVBoxLayout(self.groupBox_4)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.gridLayout_2 = QGridLayout()
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.label_3 = QLabel(self.groupBox_4)
+        self.label_3.setObjectName(u"label_3")
+
+        self.gridLayout_2.addWidget(self.label_3, 5, 0, 1, 1)
+
+        self.label_2 = QLabel(self.groupBox_4)
+        self.label_2.setObjectName(u"label_2")
+
+        self.gridLayout_2.addWidget(self.label_2, 4, 0, 1, 1)
+
+        self.d1Box = QDoubleSpinBox(self.groupBox_4)
+        self.d1Box.setObjectName(u"d1Box")
+        self.d1Box.setMaximum(500.000000000000000)
+        self.d1Box.setSingleStep(10.000000000000000)
+
+        self.gridLayout_2.addWidget(self.d1Box, 4, 1, 1, 1)
+
+        self.wasitEdit = QLineEdit(self.groupBox_4)
+        self.wasitEdit.setObjectName(u"wasitEdit")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.wasitEdit.sizePolicy().hasHeightForWidth())
+        self.wasitEdit.setSizePolicy(sizePolicy1)
+        self.wasitEdit.setReadOnly(True)
+
+        self.gridLayout_2.addWidget(self.wasitEdit, 6, 1, 1, 1)
+
+        self.label = QLabel(self.groupBox_4)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout_2.addWidget(self.label, 2, 0, 1, 1)
+
+        self.fBox = QDoubleSpinBox(self.groupBox_4)
+        self.fBox.setObjectName(u"fBox")
+        self.fBox.setMaximum(200.000000000000000)
+        self.fBox.setSingleStep(10.000000000000000)
+
+        self.gridLayout_2.addWidget(self.fBox, 2, 1, 1, 1)
+
+        self.checkBox = QCheckBox(self.groupBox_4)
+        self.checkBox.setObjectName(u"checkBox")
+
+        self.gridLayout_2.addWidget(self.checkBox, 0, 0, 2, 2)
+
+        self.label_5 = QLabel(self.groupBox_4)
+        self.label_5.setObjectName(u"label_5")
+
+        self.gridLayout_2.addWidget(self.label_5, 6, 0, 1, 1)
+
+        self.d2Box = QDoubleSpinBox(self.groupBox_4)
+        self.d2Box.setObjectName(u"d2Box")
+        self.d2Box.setMaximum(700.000000000000000)
+        self.d2Box.setSingleStep(10.000000000000000)
+
+        self.gridLayout_2.addWidget(self.d2Box, 5, 1, 1, 1)
+
+        self.label_6 = QLabel(self.groupBox_4)
+        self.label_6.setObjectName(u"label_6")
+
+        self.gridLayout_2.addWidget(self.label_6, 7, 0, 1, 1)
+
+        self.distanceEdit = QLineEdit(self.groupBox_4)
+        self.distanceEdit.setObjectName(u"distanceEdit")
+        sizePolicy1.setHeightForWidth(self.distanceEdit.sizePolicy().hasHeightForWidth())
+        self.distanceEdit.setSizePolicy(sizePolicy1)
+        self.distanceEdit.setReadOnly(True)
+
+        self.gridLayout_2.addWidget(self.distanceEdit, 7, 1, 1, 1)
+
+
+        self.verticalLayout_4.addLayout(self.gridLayout_2)
+
+
+        self.verticalLayout_5.addWidget(self.groupBox_4)
 
         self.groupBox_3 = QGroupBox(self.centralwidget)
         self.groupBox_3.setObjectName(u"groupBox_3")
@@ -182,24 +265,24 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.textBrowser = QTextBrowser(self.groupBox_3)
         self.textBrowser.setObjectName(u"textBrowser")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
-        self.textBrowser.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
+        self.textBrowser.setSizePolicy(sizePolicy2)
 
         self.verticalLayout_2.addWidget(self.textBrowser)
 
 
-        self.verticalLayout_4.addWidget(self.groupBox_3)
+        self.verticalLayout_5.addWidget(self.groupBox_3)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout_4)
+        self.horizontalLayout.addLayout(self.verticalLayout_5)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 918, 33))
+        self.menubar.setGeometry(QRect(0, 0, 945, 33))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuEdit_E = QMenu(self.menubar)
@@ -250,6 +333,13 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Cavity Length (mm):", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Function Key Step (mm):", None))
         self.help_Button.setText(QCoreApplication.translate("MainWindow", u"Function Key Help", None))
+        self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Collimator", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"View Length (mm):", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Gap Length (mm):", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Focal Length (mm):", None))
+        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"Fitted with a collimating lens", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Waist Width (mm):", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Waist From Lens (mm):", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Prompt", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File(&F)", None))
         self.menuEdit_E.setTitle(QCoreApplication.translate("MainWindow", u"Edit(&E)", None))

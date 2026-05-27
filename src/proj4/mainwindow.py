@@ -356,28 +356,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if n_len <= 2 * skip:
             return -1, -1, None
             
-        sub_data = data[skip : n_len - skip]
+        # sub_data = data[skip : n_len - skip]
+        sub_data = data[1001 : 2400]
         
         # calculate threshold value
         min_val = np.min(sub_data)
         max_val = np.max(sub_data)
-        threshold = min_val + (max_val - min_val) * 0.5
+        threshold = min_val + (max_val - min_val) * 0.6
         
         # detect threshold
         cross_points = []
         for i in range(1, len(sub_data)):
             if (sub_data[i-1] < threshold <= sub_data[i]) or \
                (sub_data[i-1] > threshold >= sub_data[i]):
-                cross_points.append(i + skip)
+                cross_points.append(i + 1000)
 
         # select 2, 3, 4 points
         if len(cross_points) >= 4:
-            a = cross_points[1]   # when it is in 0, 1, 2, the result is true
-            b = cross_points[2]
-            c = cross_points[3]
+            a = cross_points[0]   # when it is in 0, 1, 2, the result is true
+            b = cross_points[1]
+            c = cross_points[2]
             h1 = b - a
             h2 = c - a
-            return h1, h2, cross_points[1:4]   # TODO:this place need to change
+            return h1, h2, cross_points[0:3]   # TODO:this place need to change
         else:
             return -1, -1, None
 

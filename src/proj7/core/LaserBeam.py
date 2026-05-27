@@ -10,9 +10,13 @@ class LaserBeam:
         r1: float = 1000.0, # mm (np.inf or 0 is plate mirror)
         r2: float = 1000.0, # mm (np.inf or 0 is plate mirror)
         r3: float | None = None,
-        r4: float | None = None
+        r4: float | None = None,
+        d1: float = 20.0,  # mm, gap length 
+        f: float = 40.0,   # mm, focal length of lens
+        d2: float = 100.0, # mm, view length
+        lens: bool = False # yes or not lens
     ):
-        self.update_params(wl, L, r1, r2, r3, r4)
+        self.update_params(wl, L, r1, r2, d1, f, d2, lens, r3, r4)
 
 
     def update_params(
@@ -21,14 +25,22 @@ class LaserBeam:
         L: float,
         r1: float,
         r2: float,
+        d1: float,
+        f: float,
+        d2: float,
+        lens: bool,
         r3: float | None = None,
-        r4: float | None = None
+        r4: float | None = None,
     ):
         self.wl = wl * 1e-3  # um -> mm
         self.L = L
         # radius -> 0 means inf 
         self.r1 = np.inf if abs(r1) < 1e-9 else r1
         self.r2 = np.inf if abs(r2) < 1e-9 else r2
+        self.d1 = d1
+        self.d2 = d2
+        self.f = f
+        self.lens = lens
         if r3 is None:
             self.r3 = r3
         else:
@@ -109,6 +121,73 @@ class LaserBeam:
         w = w0 * np.sqrt(1 + (z_trans/z_R)**2)
 
         return z, w
+
+
+    def propagate_q(
+        self,
+        q: complex,
+        M: np.ndarray
+    ) -> complex:
+        A, B = M[0, 0], M[0, 1]
+        C, D = M[1, 0], M[1, 1]
+        return (A*q + B) / (C*q + D)
+
+
+    def q_to_w(self, q: complex) -> float:
+        # 1/q = 1/R - i * lambda / (pi * w^2)
+        inv_q = 1.0 / q
+        return np.sqrt(-self.wl / (np.pi * np.imag(inv_q)))
+    
+
+    def external_beam(
+        self, 
+        d1: float, # distance from output mirror to lens (mm)
+        f: float,  # focal length of lens (mm)
+        d2: float, # distance behind lens (mm)
+        step_num: int = 100
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+        inv_q, _ = self.solve_q()
+        if inv_q is None:
+            return None, None, None, None
+            
+        q1 = 1.0 / inv_q # q of left mirror
+        q_out = q1 + self.L
+        
+        z_before = np.linspace(0, d1, step_num)
+        w_before = np.array([self.q_to_w(q_out + z) for z in z_before])
+        
+        q_lens_in = q_out + d1
+        M_lens = self.lens_matrix(f)
+        q_lens_out = self.propagate_q(q_lens_in, M_lens)
+        
+        # behind output mirror
+        z_after = np.linspace(0, d2, step_num)
+        w_after = np.array([self.q_to_w(q_lens_out + z) for z in z_after])
+        
+        return z_before, w_before, z_after, w_after
+
+
+    def get_external_waist(self) -> tuple[float | None, float | None]:
+        inv_q, _ = self.solve_q()
+        if inv_q is None:
+            return None, None
+        
+        q1 = 1.0 / inv_q
+        
+        q_lens_in = q1 + self.L + self.d1
+        
+        M_lens = self.lens_matrix(self.f)
+        q_lens_out = self.propagate_q(q_lens_in, M_lens)
+        
+        z_waist_from_lens = -np.real(q_lens_out)
+        z_R_new = np.imag(q_lens_out)
+        
+        if z_R_new <= 0:
+            return None, None
+        
+        w0_new = np.sqrt(self.wl*z_R_new/np.pi)
+
+        return z_waist_from_lens, w0_new
 
 
 if __name__ == "__main__":

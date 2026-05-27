@@ -299,12 +299,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             ccd_data = np.frombuffer(ccd_raw, dtype='>u2').astype(np.float64)
             filtered_data = self.smoothData(ccd_data, window=80)  # changable
-            self.deltaX = self.calcDeltaX(filtered_data)
+            self.deltaX, x1, x2 = self.calcDeltaX(filtered_data)
             if self.deltaX > 0:
                 self.xEdit.setText(str(self.deltaX))
             else:
                 self.xEdit.setText("0")
-            self.plotCCD(filtered_data, cross_points=None)
+            self.plotCCD(filtered_data, [x1, x2])
         except Exception as e:
             self.textBrowser.append(
                 f"> <span style='color: red'>Read Error: {e}</span>\n"
@@ -364,7 +364,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.x1Edit.setText(str(x1))
         self.x2Edit.setText(str(x2))
         
-        return x2 - x1
+        return x2-x1, x1, x2
 
 
     def findLocalMin(

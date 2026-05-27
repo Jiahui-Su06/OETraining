@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from core import ES, SNV, SG
+from core import ES, SNV, SG, evaluatePreprocess
 
 
 file_name = "mp6spec"  # m5spec/mp5spec/mp6spec for select
@@ -22,20 +22,18 @@ WL = df.columns.astype(float)  # wavelength (nm)
 ## ES
 alpha = 0.24
 ## SG
-window_length = 65  # must be even
+window_length = 65  # must be odd
 polyorder = 3  # usually be 2 or 3
 deriv_order = 1
 
+processed_list = []
 processed_df = pd.DataFrame(index=df.index, columns=df.columns)
 for sample_number, row in df.iterrows():
     plt.figure()
     if method == "ES":
-        smoothed_row = ES(row, alpha=alpha)
-        processed_spectrum = smoothed_row.values
-        processed_df.loc[sample_number] = processed_spectrum
+        processed_spectrum = ES(row, alpha=alpha).values
     elif method == "SNV":
         processed_spectrum = SNV(row.values)
-        processed_df.loc[sample_number] = processed_spectrum
     elif method == "SG":
         processed_spectrum = SG(
             row.values, 
@@ -43,7 +41,9 @@ for sample_number, row in df.iterrows():
             polyorder=polyorder,
             deriv=deriv_order
         )
-        processed_df.loc[sample_number] = processed_spectrum
+    processed_list.append(
+        pd.Series(processed_spectrum, index=df.columns, name=sample_number)
+    )
     plt.plot(WL, row.values, label='original', color='blue', alpha=0.6)
     plt.plot(WL, processed_spectrum, label='processed', color='red', linewidth=2)
     plt.xlim(1100, 2500)
@@ -59,6 +59,8 @@ for sample_number, row in df.iterrows():
     )
     plt.close()
 
+processed_df = pd.DataFrame(processed_list)
+
 plt.figure()
 for sample_number, row in processed_df.iterrows():
     plt.plot(WL, row.values, alpha=0.7, linewidth=1)
@@ -73,3 +75,6 @@ plt.savefig(
     dpi=500
 )
 plt.close()
+
+# Evaluate preprocess
+summary = evaluatePreprocess(df)

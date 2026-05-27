@@ -236,8 +236,6 @@
      <string>File(&amp;F)</string>
     </property>
     <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -270,7 +268,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
    <addaction name="separator"/>
    <addaction name="actionProcess"/>
   </widget>
@@ -281,24 +278,6 @@
    </property>
    <property name="text">
     <string>Open</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/icons/images/icons/save.png</normaloff>:/icons/images/icons/save.png</iconset>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </action>
-  <action name="actionClose">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/icons/images/icons/close.png</normaloff>:/icons/images/icons/close.png</iconset>
-   </property>
-   <property name="text">
-    <string>Close</string>
    </property>
   </action>
   <action name="actionProcess">

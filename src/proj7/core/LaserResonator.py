@@ -14,12 +14,20 @@ class LaserResonator(LaserBeam):
         r2: float = 500.0, # mm (np.inf or 0 is plate mirror)
         x: float = 50.0,   # origin point's (x,y)
         y: float = 300.0,
+        d1: float = 20.0,  # mm, gap length 
+        f: float = 40.0,   # mm, focal length of lens
+        d2: float = 100.0, # mm, view length
+        lens: bool = False # yes or not lens
     ):
         super().__init__(
             wl=wl,
             L=L,
             r1=r1,
-            r2=r2
+            r2=r2,
+            d1=d1,
+            f=f,
+            d2=d2,
+            lens=lens
         )
         self.x, self.y = x, y
         self.scene = parent_scene
@@ -118,3 +126,57 @@ class LaserResonator(LaserBeam):
             mirror_left
         ])
 
+        z_bef, w_bef, z_aft, w_aft = self.external_beam(self.d1, self.f, self.d2)
+        
+        if z_bef is not None and self.lens:
+            x_m2 = self.x + L_scale 
+            
+            # draw beam between output mirror and lens
+            beam_out_up = QPainterPath()
+            beam_out_down = QPainterPath()
+            beam_out_up.moveTo(x_m2, self.y + w_bef[0]*self.scale)
+            beam_out_down.moveTo(x_m2, self.y - w_bef[0]*self.scale)
+            
+            for i in range(1, len(z_bef)):
+                curr_x = x_m2 + z_bef[i]*ruler.scale
+                beam_out_up.lineTo(curr_x, self.y + w_bef[i]*self.scale)
+                beam_out_down.lineTo(curr_x, self.y - w_bef[i]*self.scale)
+            
+            out_up_item = self.scene.addPath(beam_out_up, QPen(Qt.green, 2))
+            out_down_item = self.scene.addPath(beam_out_down, QPen(Qt.green, 2))
+            out_up_item.setParentItem(mirror_left)
+            out_down_item.setParentItem(mirror_left)
+
+            # position of lens
+            x_lens = x_m2 + self.d1 * ruler.scale
+            
+            # draw lens
+            lens_height = self.w_mirror * 2
+            lens_width = 8
+            lens_item = self.scene.addEllipse(
+                x_lens-lens_width/2, self.y-lens_height/2, 
+                lens_width, lens_height, QPen(Qt.blue, 2)
+            )
+            lens_item.setParentItem(mirror_left)
+            lens_item.setZValue(2)
+            
+            # draw beam behind lens
+            beam_aft_up = QPainterPath()
+            beam_aft_down = QPainterPath()
+            beam_aft_up.moveTo(x_lens, self.y+w_aft[0]*self.scale)
+            beam_aft_down.moveTo(x_lens, self.y-w_aft[0]*self.scale)
+            
+            for i in range(1, len(z_aft)):
+                curr_x = x_lens + z_aft[i]*ruler.scale
+                beam_aft_up.lineTo(curr_x, self.y+w_aft[i]*self.scale)
+                beam_aft_down.lineTo(curr_x, self.y-w_aft[i]*self.scale)
+                
+            aft_up_item = self.scene.addPath(beam_aft_up, QPen(Qt.green, 2))
+            aft_down_item = self.scene.addPath(beam_aft_down, QPen(Qt.green, 2))
+            aft_up_item.setParentItem(mirror_left)
+            aft_down_item.setParentItem(mirror_left)
+            
+            f_text = self.scene.addText(f"f={self.f}mm")
+            f_text.setDefaultTextColor(Qt.blue)
+            f_text.setPos(x_lens, self.y-lens_height/2-25)
+            f_text.setParentItem(mirror_left)
