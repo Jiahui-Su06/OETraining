@@ -111,5 +111,7 @@ class PlotDialog(QDialog, Ui_Dialog):
         self.axesY.legend(linesY, labelsY, loc='best')
         self.figureY.tight_layout()
 
+        print(errorX)
+        print(errorY)
 
     

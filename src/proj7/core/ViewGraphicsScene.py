@@ -53,7 +53,15 @@ class ViewGraphicsScene(QGraphicsScene):
         self.main_window.cavity_length_DSpinBox.setValue(L)
         self.main_window.left_radius_DSpinBox.setValue(r1)
         self.main_window.right_radius_DSpinBox.setValue(r2)
+        d1 = self.main_window.d1Box.value()
+        d2 = self.main_window.d2Box.value()
+        lens = self.main_window.checkBox.isChecked()
+        f = self.main_window.fBox.value()
 
-        self.main_window.resonator.update_params(wl=wl, L=L, r1=r1, r2=r2)
+
+        self.main_window.resonator.update_params(
+            wl=wl, L=L, r1=r1, r2=r2,
+            d1=d1, d2=d2, f=f, lens=lens
+        )
         self.main_window.resonator.redraw()
     

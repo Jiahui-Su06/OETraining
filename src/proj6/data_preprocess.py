@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from core import ES, SNV, SG, evaluatePreprocess
 
 
-file_name = "mp6spec"  # m5spec/mp5spec/mp6spec for select
+file_name = "mp5spec"  # m5spec/mp5spec/mp6spec for select
 method = "SG"  # ES/SNV/SG for select
 
 df = pd.read_excel(
@@ -75,6 +75,8 @@ plt.savefig(
     dpi=500
 )
 plt.close()
+
+processed_df.to_excel(output_folder+"/processed_spectra.xlsx")
 
 # Evaluate preprocess
 summary = evaluatePreprocess(df)

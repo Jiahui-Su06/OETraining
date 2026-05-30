@@ -344,6 +344,45 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.clearBtn, 7, 2, 1, 2)
 
+        self.label_10 = QLabel(self.groupBox_4)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_3.addWidget(self.label_10, 0, 0, 1, 1)
+
+        self.startEdit = QLineEdit(self.groupBox_4)
+        self.startEdit.setObjectName(u"startEdit")
+        sizePolicy3.setHeightForWidth(self.startEdit.sizePolicy().hasHeightForWidth())
+        self.startEdit.setSizePolicy(sizePolicy3)
+        self.startEdit.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout_3.addWidget(self.startEdit, 0, 1, 1, 1)
+
+        self.label_11 = QLabel(self.groupBox_4)
+        self.label_11.setObjectName(u"label_11")
+
+        self.gridLayout_3.addWidget(self.label_11, 0, 2, 1, 1)
+
+        self.endEdit = QLineEdit(self.groupBox_4)
+        self.endEdit.setObjectName(u"endEdit")
+        sizePolicy3.setHeightForWidth(self.endEdit.sizePolicy().hasHeightForWidth())
+        self.endEdit.setSizePolicy(sizePolicy3)
+        self.endEdit.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout_3.addWidget(self.endEdit, 0, 3, 1, 1)
+
+        self.label_12 = QLabel(self.groupBox_4)
+        self.label_12.setObjectName(u"label_12")
+
+        self.gridLayout_3.addWidget(self.label_12, 1, 0, 1, 2)
+
+        self.thresholdEdit = QLineEdit(self.groupBox_4)
+        self.thresholdEdit.setObjectName(u"thresholdEdit")
+        sizePolicy3.setHeightForWidth(self.thresholdEdit.sizePolicy().hasHeightForWidth())
+        self.thresholdEdit.setSizePolicy(sizePolicy3)
+        self.thresholdEdit.setMaximumSize(QSize(120, 16777215))
+
+        self.gridLayout_3.addWidget(self.thresholdEdit, 1, 2, 1, 2)
+
 
         self.verticalLayout_3.addLayout(self.gridLayout_3)
 
@@ -440,6 +479,12 @@ class Ui_MainWindow(object):
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"RMS:", None))
         self.deleteBtn.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.clearBtn.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Start:", None))
+        self.startEdit.setText(QCoreApplication.translate("MainWindow", u"500", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"End:", None))
+        self.endEdit.setText(QCoreApplication.translate("MainWindow", u"3500", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Threshold:", None))
+        self.thresholdEdit.setText(QCoreApplication.translate("MainWindow", u"40000", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Prompt", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File(&F)", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit(&E)", None))

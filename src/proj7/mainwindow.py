@@ -109,8 +109,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             d1=d1, d2=d2, f=f, lens=lens
         )
         z_waist_from_lens, waist_width = self.resonator.get_external_waist()
-        self.wasitEdit.setText(f"{waist_width:.2f}")
-        self.distanceEdit.setText(f"{z_waist_from_lens:.2f}")
+        self.wasitEdit.setText(f"{waist_width or 0:.2f}")
+        self.distanceEdit.setText(f"{z_waist_from_lens or 0:.2f}")
         self.resonator.redraw()
 
 

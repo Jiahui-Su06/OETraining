@@ -361,19 +361,46 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return -1, -1, None
             
         # sub_data = data[skip : n_len - skip]
-        sub_data = data[1001 : 2400]
+        start = int(self.startEdit.text().strip())
+        end = int(self.endEdit.text().strip())
+        if start < end:
+            sub_data = data[start : end]
+        else:
+            self.startEdit.setText(0)
+            self.endEdit.setText(4000)
+            QMessageBox.warning(
+                self, "Error", "Start pixel must larger than end pixel!"
+            )
         
         # calculate threshold value
         min_val = np.min(sub_data)
         max_val = np.max(sub_data)
-        threshold = min_val + (max_val - min_val) * 0.6
-        
+
+        threshold = min_val + (max_val - min_val) * 0.65
+        # threshold = int(self.thresholdEdit.text().strip())
         # detect threshold
         cross_points = []
         for i in range(1, len(sub_data)):
             if (sub_data[i-1] < threshold <= sub_data[i]) or \
                (sub_data[i-1] > threshold >= sub_data[i]):
-                cross_points.append(i + 1000)
+                cross_points.append(i + start)
+
+        min = []  # local min index
+        i = start
+        while i < end and i < len(data) - 1:
+            if (data[i] < data[i-1] and 
+                data[i] < data[i+1] and 
+                data[i] < threshold):
+                min.append(i)
+                i += 300  # need 
+            else:
+                i += 1
+        
+        min.sort()  # from small to big (index)
+        if len(min) > 2:
+            min = min[:2]  # first two index
+        
+        h2 = min[1] - min[0]
 
         # select 2, 3, 4 points
         if len(cross_points) >= 4:
@@ -381,8 +408,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             b = cross_points[1]
             c = cross_points[2]
             h1 = b - a
-            h2 = c - a
-            return h1, h2, cross_points[0:3]   # TODO:this place need to change
+            # h2 = c - a
+            return h1, h2, cross_points[0:2]+min[:2]   # TODO:this place need to change
         else:
             return -1, -1, None
 
@@ -418,8 +445,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if cross_points is None:
             return
         
-        colors = ['r', 'g', 'b']
-        labels = ['P1', 'P2', 'P3']
+        colors = ['r', 'g', 'b', 'y']
+        labels = ['', '', '', '']
 
         for i, pos in enumerate(cross_points):
             line = pg.InfiniteLine(

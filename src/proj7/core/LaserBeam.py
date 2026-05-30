@@ -55,7 +55,7 @@ class LaserBeam:
     def free_space_matrix(L: float) -> np.ndarray:
         return np.array([[1.0, L  ],
                          [0.0, 1.0]], dtype=float)
-    
+
 
     @staticmethod
     def lens_matrix(f: float) -> np.ndarray:

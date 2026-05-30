@@ -122,12 +122,3 @@ def evaluatePreprocess(df):
             print(f"{metric}: {value:.6f}")
     
     return summary
-
-if __name__ == "__main__":
-    file_name = "mp5spec"  # m5spec/mp5spec/mp6spec for select
-    df = pd.read_excel(
-        f"docs/{file_name}.xlsx",
-        sheet_name='Sheet1',
-        index_col=0
-    )
-    evaluatePreprocess(df)
